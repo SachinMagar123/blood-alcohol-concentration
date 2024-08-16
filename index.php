@@ -14,7 +14,7 @@
     <h2>Blood Alcohol Concentration Calculator</h2>
     <form action="calculate_bac.php" method="POST">
       <label for="weight">Weight:</label>
-      <input type="number" id="weight" name="weight" placeholder="Enter your weight" required>
+      <input type="number" id="weight" name="weight" placeholder="Enter your weight" step=".00001" required>
 
       <label for="unit">Weight Unit:</label>
       <select id="unit" name="unit" required>
@@ -33,18 +33,21 @@
 
       <label for="alcohol_content">Alcohol Content per Drink (grams):</label>
       <input type="number" id="alcohol_content" name="alcohol_content" placeholder="Enter alcohol content per drink"
-        required>
+        step=".00001" required>
 
       <label for="time_elapsed">Time Elapsed (hours):</label>
       <input type="number" id="time_elapsed" name="time_elapsed" placeholder="Enter time elapsed since drinking started"
-        required>
+      step=".001" required>
 
       <button type="submit">Calculate BAC</button>
     </form>
 
     <div class="output-wrapper">
-      <div> Your Blood Concentration is: <span>0.08%</span></div>
-      <div> Safe to drive </div>
+    <?php if (isset($_GET['bac'])): ?>
+      <!-- if result higher than 0.08 then you're jadiya .Lemon khau -->
+        <div>Your Blood Alcohol Concentration is: <span id="bacResult"><?= htmlspecialchars($_GET['bac']) ?>%</span></div>
+        <div><?= htmlspecialchars($_GET['message']) ?></div>
+      <?php endif; ?>
     </div>
   </div>
 </body>
